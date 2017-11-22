@@ -46,15 +46,21 @@ function openFunction {
 }
 
 function closeFunction {
-	if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
-		rm ~/.tomb/tomb.tar.gz.gpg
+	pass_change_date="$(git -C ~/.password-store/ log -1 --format=%ct)"
+	tomb_change_date="$(git -C ~/.tomb log -1 --format=%ct)"
+	if [[ "$pass_change_date" -lt "$tomb_change_date" ]]; then
+		rm -rf ~/.password-store/
+		echo "No changes since last close. No update to be made."
+	else
+		if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
+			rm ~/.tomb/tomb.tar.gz.gpg
+		fi
+		tar -zc -f ~/.tomb/tomb.tar.gz ~/.tomb/tomb
+		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz ~/.password-store/
+		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
+		git -C ~/.tomb/ commit -m 'tomb update'
+		git -C ~/.tomb/ push
 	fi
-        cp -a ~/.password-store/ ~/.tomb/tomb	
-	tar -zc -f ~/.tomb/tomb.tar.gz ~/.tomb/tomb
-	gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz ~/.password-store/
-	git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
-	git -C ~/.tomb/ commit -m 'tomb update'
-	git -C ~/.tomb/ push
 }
 
 # while loop to parse arguments
