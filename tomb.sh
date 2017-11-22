@@ -38,20 +38,20 @@ function openFunction {
 		rm -rf ~/.tomb/tomb/
 	fi
 
-        gpg -d ~/.tomb/tomb.tar.gpg > ~/.tomb/tomb.tar
-	tar x -f ~/.tomb/tomb.tar -C ~/.tomb/ --strip-components=3
+        gpg -d ~/.tomb/tomb.tar.gz.gpg > ~/.tomb/tomb.tar.gz || { echo 'Decryption failed' ; exit 1; }
+	tar -zx -f ~/.tomb/tomb.tar.gz -C ~/.tomb/ --strip-components=3
 	mkdir ~/.password-store
 	cp -a ~/.tomb/tomb/ ~/.password-store/
-	rm -rf ~/.tomb/tomb/ ~/.tomb/tomb.tar
+	rm -rf ~/.tomb/tomb/ ~/.tomb/tomb.tar.gz
 }
 
 function closeFunction {
-	if [[ -e ~/.tomb/tomb.tar.gpg ]]; then
-		rm ~/.tomb/tomb.tar.gpg
+	if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
+		rm ~/.tomb/tomb.tar.gz.gpg
 	fi
         cp -a ~/.password-store/ ~/.tomb/tomb	
-	tar c -f ~/.tomb/tomb.tar ~/.tomb/tomb
-	gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.password-store/
+	tar -zc -f ~/.tomb/tomb.tar.gz ~/.tomb/tomb
+	gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz ~/.password-store/
 }
 
 # while loop to parse arguments
@@ -60,9 +60,15 @@ while [ "$#" -gt 0 ]; do
                 --help) helpFunction; shift 1;;
                 -h) helpFunction; shift 1;;
                 open) openFunction; shift 1;;
+		o) openFunction; shift 1;;
+		-o) openFunction; shift 1;;
                 close) closeFunction; shift 1;;
+		c) closeFunction; shift 1;;
+		-c) closeFunction; shift 1;;
 		status) statusFunction; shift 1;;
-                -*) exitFunction "$1"; shift 1;;
+                s) statusFunction; shift 1;;
+		-s) statusFunction; shift 1;;
+		-*) exitFunction "$1"; shift 1;;
                 *) exitFunction "$1"; shift 1;;
         esac
 done
