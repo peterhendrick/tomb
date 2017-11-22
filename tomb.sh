@@ -60,7 +60,7 @@ while [ "$#" -gt 0 ]; do
                 -h) helpFunction; shift 1;;
                 open) openFunction; shift 1;;
                 close) closeFunction; shift 1;;
-		status) statusFunction; shift1;;
+		status) statusFunction; shift 1;;
                 -*) exitFunction "$1"; shift 1;;
                 *) exitFunction "$1"; shift 1;;
         esac
