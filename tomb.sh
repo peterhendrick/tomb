@@ -15,7 +15,8 @@ function helpFunction {
         echo "Usage: $0 [arguments...]"; echo
         echo "   -h| --help                 Show help."; echo
         echo "   open                       open the tomb for pass"; echo
-	echo "   close                      close the pass dir into a tomb": echo
+	echo "   close                      close the ~/.password-store/ dir into a tomb"; echo
+	echo "   status                     show the tomb's current status"; echo
 	exit 1
 }
 
