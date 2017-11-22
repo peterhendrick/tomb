@@ -52,6 +52,9 @@ function closeFunction {
         cp -a ~/.password-store/ ~/.tomb/tomb	
 	tar -zc -f ~/.tomb/tomb.tar.gz ~/.tomb/tomb
 	gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz ~/.password-store/
+	git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
+	git -C ~/.tomb/ commit -m 'tomb update'
+	git -C ~/.tomb/ push
 }
 
 # while loop to parse arguments
