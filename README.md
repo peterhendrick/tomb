@@ -30,7 +30,7 @@ The rest of this README will assume your bash commands are executed within the t
 
 ## Getting Started
 
-Now that you've verified the authenticity of the tomb file, you need to give yourself permission to execute the tomb.sh file. Type the command:
+It is recommended that you verify your download before executing any files downloaded from the internet. You can see instructions for verifying your download near the bottom of this readme.
 
 ```bash
 chmod u+x ./tomb.sh
