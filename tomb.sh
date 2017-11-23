@@ -1,7 +1,5 @@
 #! /bin/bash
 
-
-# Function Definitions
 function exitFunction {
         echo "Error - Bad Argument: $1 not found." >&2
 	helpFunction
@@ -79,7 +77,6 @@ function initFunction {
 	echo "Success, tomb is initialized."
 }
 
-# while loop to parse arguments
 while [ "$#" -gt 0 ]; do
         case "$1" in
 		help) helpFunction; shift 1;;
