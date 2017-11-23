@@ -29,7 +29,7 @@ The rest of this README will assume your bash commands are executed within the t
 
 ## Getting Started
 
-First download tomb open up your terminal and type:
+First download tomb. Open up your terminal and type:
 ```bash
 git clone https://github.com/peterhendrick/tomb.git ~/tomb/ && cd ~/tomb
 ```
