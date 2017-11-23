@@ -22,7 +22,17 @@ if [ "$#" = 0 ]; then
 	exit 1
 fi
 
+function tombExistanceCheck {
+	if [[ ! -d ~/.tomb/ ]]; then
+		echo "Tomb has not been initialized."
+		echo
+		echo "Type: tomb init"
+		exit 1
+	fi
+}
+
 function statusFunction {
+	tombExistanceCheck
 	if [[ -d ~/.password-store/ ]]; then
 		echo "Tomb is open."
 	else
@@ -32,7 +42,8 @@ function statusFunction {
 }
 
 function openFunction {
-        if [[ -d ~/.password-store/ ]]; then
+        tombExistanceCheck
+	if [[ -d ~/.password-store/ ]]; then
                 echo "Password store already exists"
                 exit 1
         fi
@@ -44,6 +55,7 @@ function openFunction {
 }
 
 function closeFunction {
+	tombExistanceCheck
 	if [[ ! -d ~/.password-store/ ]]; then
 		echo "Tomb is already closed"
 		exit 1
