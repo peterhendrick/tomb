@@ -100,7 +100,7 @@ Once your remote repo is setup type:
 git -C ~/.tomb/ remote add origin <SSH to remote>
 ```
 
-You'll also want to configure your git to set yourself as the author of your commits, and to sign your commits, type the following commands:
+You'll also want to configure your tomb's git repo to set yourself as the author of your commits, and to sign your commits, type the following commands:
 ```bash
 git -C ~/.tomb/ config user.name "Yourname"
 git -C ~/.tomb/ config user.email "youremail"
