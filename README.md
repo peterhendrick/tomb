@@ -97,7 +97,7 @@ Tomb also expects your git repo to have a remote tied to it. So create a remote 
 
 Once your remote repo is setup type:
 ```bash
-git -C ~/.tomb/ remote add origin <URL to remote>
+git -C ~/.tomb/ remote add origin <SSH to remote>
 ```
 
 You'll also want to configure your git to set yourself as the author of your commits, and to sign your commits, type the following commands:
