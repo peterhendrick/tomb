@@ -1,13 +1,10 @@
 #! /bin/bash
 
-if [ "$#" = 0 ]; then
-        echo "Error: use open or close or use help -h or --help." >&2
-        exit 1
-fi
 
 # Function Definitions
 function exitFunction {
-        echo "Error - Bad Argument: $1 not found. Use help -h or --help." >&2
+        echo "Error - Bad Argument: $1 not found." >&2
+	helpFunction
         exit 1
 }
 
@@ -20,6 +17,12 @@ function helpFunction {
 	echo "   init | i | -i               initialize tomb"; echo
 	exit 1
 }
+
+if [ "$#" = 0 ]; then
+	echo "Error: no argument given" >&2
+	helpFunction
+	exit 1
+fi
 
 function statusFunction {
 	if [[ -d ~/.password-store/ ]]; then
@@ -35,7 +38,6 @@ function openFunction {
                 echo "Password store already exists"
                 exit 1
         fi
-
         gpg -d ~/.tomb/tomb.tar.gz.gpg > ~/.tomb/tomb.tar.gz || { echo 'Decryption failed' ; exit 1; }
 	tar -zx -f ~/.tomb/tomb.tar.gz -C ~/.tomb/ --strip-components=3
 	mkdir ~/.password-store
@@ -95,7 +97,6 @@ while [ "$#" -gt 0 ]; do
                 *) exitFunction "$1"; shift 1;;
         esac
 done
-
 
 exit 0
 
