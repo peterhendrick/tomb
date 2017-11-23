@@ -64,12 +64,23 @@ function closeFunction {
 	fi
 }
 
+function initFunction {
+	if [[ -d ~/.tomb/ ]]; then
+		echo "Tomb is already initialized."
+		exit 1
+	fi
+	mkdir ~/.tomb/
+	git -C ~/.tomb/ init
+	echo "Success, tomb is initialized."
+}
+
 # while loop to parse arguments
 while [ "$#" -gt 0 ]; do
         case "$1" in
                 --help) helpFunction; shift 1;;
                 -h) helpFunction; shift 1;;
-                open) openFunction; shift 1;;
+                init) initFunction; shift 1;;
+		open) openFunction; shift 1;;
 		o) openFunction; shift 1;;
 		-o) openFunction; shift 1;;
                 close) closeFunction; shift 1;;
