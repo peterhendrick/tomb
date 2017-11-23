@@ -32,6 +32,8 @@ The rest of this README will assume your bash commands are executed within the t
 
 It is recommended that you verify your download before executing any files downloaded from the internet. You can see instructions for verifying your download near the bottom of this readme.
 
+First give permission to the current user to execute the tomb.sh file.
+
 ```bash
 chmod u+x ./tomb.sh
 ```
