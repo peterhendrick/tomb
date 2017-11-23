@@ -1,5 +1,7 @@
 #! /bin/bash
 
+PATH=$PATH:/usr/local/bin:~/bin
+
 function exitFunction {
         echo "Error - Bad Argument: $1 not found." >&2
 	helpFunction
@@ -28,6 +30,15 @@ function tombExistanceCheck {
 		echo
 		echo "Type: tomb init"
 		exit 1
+	fi
+}
+
+function checkFunction {
+	check=$(tomb status)
+	echo "$check"
+	if [[ "$check" = "Tomb is open." ]]; then
+		echo "Closing tomb."
+		closeFunction
 	fi
 }
 
@@ -107,6 +118,7 @@ while [ "$#" -gt 0 ]; do
 		status) statusFunction; shift 1;;
                 s) statusFunction; shift 1;;
 		-s) statusFunction; shift 1;;
+		check) checkFunction; shift 1;;
 		-*) exitFunction "$1"; shift 1;;
                 *) exitFunction "$1"; shift 1;;
         esac
