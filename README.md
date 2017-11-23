@@ -39,7 +39,7 @@ It is recommended that you verify your download before executing any files downl
 Once you've verified the download using the SHASUM and SHASUM.sig files, give permission to the current user to execute the tomb.sh file.
 
 ```bash
-chmod u+x ./tomb.sh
+chmod u+x ~/.tomb/tomb.sh
 ```
 * chmod - this program is native to unix and modifies file permissions. See more by typing "man chmod".
 * u+x - this argument gives the present user permission to execute the file specified in the next argument (./tomb.sh).
