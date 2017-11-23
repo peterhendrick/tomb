@@ -50,7 +50,7 @@ function closeFunction {
 	tomb_change_date="$(git -C ~/.tomb log -1 --format=%ct)"
 	if [[ "$pass_change_date" -lt "$tomb_change_date" ]]; then
 		rm -rf ~/.password-store/
-		echo "No changes since last close. No update to be made."
+		echo "No changes since last close. Removing password store, but no updates to be made."
 	else
 		cp -a ~/.password-store/ ~/.tomb/tomb
 		if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
