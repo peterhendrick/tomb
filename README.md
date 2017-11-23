@@ -87,10 +87,10 @@ pass git init
 pass will automatically add and commit changes to your ~/.password-store/ directory, however, password names are stored in plaintext. Tomb takes care of this information leak by first creating a gzipped tape archive (.tar.gz) file of the .password-store directory. It then uses gpg to encypt the .tar.gz file using your default gpg private key. Tomb will then remove the ~/.password-store directory so that only an enctypted .tar.gz.gpg file remains within the ~/.tomb/ directory. You can then easily decrypt, extract and open the tomb at any time and your original ~/.password-store directory will be restored.
 
 
-Tomb expects git to be initialized in the ~/.tomb/ directory, so type:
+You'll need Tomb expects git to be initialized in the ~/.tomb/ directory, so type:
 
 ```bash
-mkdir ~/.tomb && git -C ~/.tomb/ init
+tomb init
 ```
 
 Tomb also expects your git repo to have a remote tied to it. So create a remote repo that you have access to, you can use github. Your file will be encrypted, so as long as you protect your gpg private key, and back it up securely, no one but you can decrypt the files on github. Backing up your tomb to a cloud source will ensure that even if you lose your electronics in a fire, you will still have your password store (so long as you safely backup your gpg secret key).
@@ -100,6 +100,13 @@ Once your remote repo is setup type:
 git -C ~/.tomb/ remote add origin <URL to remote>
 ```
 
+You'll also want to configure your git to set yourself as the author of your commits, and to sign your commits, type the following commands:
+```bash
+git -C ~/.tomb/ config user.name "Yourname"
+git -C ~/.tomb/ config user.email "youremail"
+git -C ~/.tomb/ config user.signingkey "your gpg key"
+git -C ~/.tomb/ config commit.gpgsign true
+```
 
 To create or update your tomb, after you have initialized the ~/.tomb/ directory and git initialized your ~/.tomb dir, simply type:
 ```bash
