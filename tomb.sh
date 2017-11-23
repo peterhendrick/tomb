@@ -52,6 +52,7 @@ function closeFunction {
 		rm -rf ~/.password-store/
 		echo "No changes since last close. No update to be made."
 	else
+		cp -a ~/.password-store/ ~/.tomb/tomb
 		if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
 			rm ~/.tomb/tomb.tar.gz.gpg
 		fi
