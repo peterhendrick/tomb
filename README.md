@@ -111,7 +111,7 @@ To create or update your tomb, after you have initialized the ~/.tomb/ directory
 tomb close
 ```
 
-This will archive and encrypt your password store and remove the ~/.password-store directory, ensuring that even the password names are not accessible without first decrypting. With tomb's git repo setup and properly tied to a remote, it will then add and commit the encyrpted archive and push it to the remote. Your password store's original git repo will be preserved. It is not recommended that you publish your plaintext password store on a git remote, since password names can expose which sites you have passwords to, even if the password itself is not accessible.
+This will archive and encrypt your password store and remove the ~/.password-store directory, ensuring that even the password names are not accessible without first decrypting. Tomb will has your compressed password store and compare it to the latest hash taken, so that if there are no changes to the password store, then it will abort updating your tomb's git repo. Your password store's original git repo will be preserved during this compression and encryption. It is not recommended that you publish your plaintext password store on a git remote, since password names can expose which sites you have passwords to, even if the password itself is not accessible.
 
 To open the tomb back up, type:
 

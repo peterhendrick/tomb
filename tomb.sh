@@ -34,9 +34,7 @@ function tombExistanceCheck {
 }
 
 function checkFunction {
-	check=$(tomb status)
-	echo "$check"
-	if [[ "$check" = "Tomb is open." ]]; then
+	if [[ ! -d ~/.password-store  ]]; then
 		echo "Closing tomb."
 		closeFunction
 	fi
@@ -100,6 +98,9 @@ function initFunction {
 	fi
 	mkdir ~/.tomb/
 	git -C ~/.tomb/ init
+	echo ".tarsha" > .gitignore
+	git -C ~/.tomb/ add .gitignore
+	git -C ~/.tomb/ commit -m 'initialized .git and added .git ignore'
 	echo "Success, tomb is initialized."
 }
 
