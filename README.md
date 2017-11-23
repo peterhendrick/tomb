@@ -10,13 +10,13 @@ tomb is an extension for the pass package in homebrew for mac.
 
 ## Requirements and Downloading
 
-To use steggin, you need:
+To use tomb, you need:
 
 * The Bourne Again Shell - bash: to execute the script. This should come pre-installed in mac and linux.
 
 * Xcode (for mac users) - mac developer tools. You'll need Xcode to use git source control.
 
-* git - the stupid content tracker: You'll need git to download and update your steggin file.
+* git - the stupid content tracker: You'll need git to download and update your tomb file.
 
 * GnuPG - Gnu Privacy Guard (optional): to verify your download and encrypt/decrypt files while steggin'.
 
@@ -27,7 +27,7 @@ The rest of this README will assume your bash commands are executed within the t
 
 ## Verifying Your Download
 
-You are going to want to verify the file you download is legitimate. To do this, I've included a SHASUM file containing a sha256 hash of the steggin.sh script.
+You are going to want to verify the file you download is legitimate. To do this, I've included a SHASUM file containing a sha256 hash of the tomb.sh script.
 
 When using tools for things like hiding files, you want to have absolute confidence in the legitimacy of your tools. Verifying your downloads is a good habit to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in your tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
 
@@ -42,16 +42,16 @@ You should see output similar to this:
 442298e67603b80d4db2e42ba98bb8bd9feb3c652840704e98163949cbbf6f01  tomb.sh
 ```
 * shasum - a program to calculate a hash of a file.
-* -a - to specify the algorithm (256) to calculate the hash of the input file (steggin.sh).
+* -a - to specify the algorithm (256) to calculate the hash of the input file (tomb.sh).
 * && - to do two commands at once if the first command succeeds.
 * cat - a program to concatenate output from a given file (SHASUM).
 
-The hexadecimal string on the first line of the output represents a unique identity of the downloaded steggin.sh file.
+The hexadecimal string on the first line of the output represents a unique identity of the downloaded tomb.sh file.
 The second line is text of the sha256 that I calculated on my personal machine. If they match, you likely have an identical file to the one I wrote.
 
-If both lines of the output DO NOT match EXACTLY. Then STOP and reflect on what you've done so far. DELETE your steggin folder and re-download. It's possible that something went wrong while downloading.
+If both lines of the output DO NOT match EXACTLY. Then STOP and reflect on what you've done so far. DELETE your tomb folder and re-download. It's possible that something went wrong while downloading.
 
-If both output lines DO match EXACTLY, then that's good, but it is still not enough to be absolutely certain that your download is legitimate. A good hacker could give you a malicious steggin.sh file and update the SHASUM file to match their malicious file.
+If both output lines DO match EXACTLY, then that's good, but it is still not enough to be absolutely certain that your download is legitimate. A good hacker could give you a malicious tomb.sh file and update the SHASUM file to match their malicious file.
 
 To defend against this type of attack, I have used GnuPG to sign the SHASUM file.
 
@@ -78,7 +78,7 @@ You should see the following as part of the output:
 gpg: Good signature from "Peter Hendrick <myemail>"
 ```
 
-If you see the "Good signature", you can be as certain as possible that the SHASUM file is the file I wrote. Verifying the gpg signature along with verifying that the "shasum -a 256 steggin.sh" hash matches the text in the SHASUM file means you can have near absolute certainty that the steggin.sh file downloaded on your computer is Byte for Byte identical to the steggin.sh file I wrote. GPG is military grade encryption, so there are no known hacks to break the encryption. The only way for someone to fake my signature is for them to digitally capture my gpg secret key and also know my passphrase for the secret key.
+If you see the "Good signature", you can be as certain as possible that the SHASUM file is the file I wrote. Verifying the gpg signature along with verifying that the "shasum -a 256 tomb.sh" hash matches the text in the SHASUM file means you can have near absolute certainty that the tomb.sh file downloaded on your computer is Byte for Byte identical to the tomb.sh file I wrote. GPG is military grade encryption, so there are no known hacks to break the encryption. The only way for someone to fake my signature is for them to digitally capture my gpg secret key and also know my passphrase for the secret key.
 
 If you have my gpg public key, and you would like to use one command for the verification, you can type:
 
@@ -89,8 +89,8 @@ cat SHASUM && shasum -a 256 tomb.sh && gpg --verify SHASUM.sig SHASUM
 You should see output similar to this:
 
 ```bash
-31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  steggin.sh
-31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  steggin.sh
+31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  tomb.sh
+31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  tomb.sh
 gpg: Signature made Mon Aug 29 22:46:21 2016 UTC using RSA key ID EC3ED53D
 gpg: Good signature from "Peter Hendrick <myemail>"
 ```
@@ -98,13 +98,13 @@ gpg: Good signature from "Peter Hendrick <myemail>"
 
 ## Getting Started
 
-Now that you've verified the authenticity of the steggin file, you need to give yourself permission to execute the steggin.sh file. Type the command:
+Now that you've verified the authenticity of the tomb file, you need to give yourself permission to execute the tomb.sh file. Type the command:
 
 ```bash
 chmod u+x ./tomb.sh
 ```
 * chmod - this program is native to unix and modifies file permissions. See more by typing "man chmod".
-* u+x - this argument gives the present user permission to execute the file specified in the next argument (./steggin.sh).
+* u+x - this argument gives the present user permission to execute the file specified in the next argument (./tomb.sh).
 
 You'll want to create a symlink in your path to execute tomb.
 
