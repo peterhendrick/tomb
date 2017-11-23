@@ -91,6 +91,11 @@ mkdir ~/.tomb && git -C ~/.tomb/ init
 
 Tomb also expects your git repo to have a remote tied to it. So create a remote repo that you have access to, you can use github. Your file will be encrypted, so as long as you protect your gpg private key, and back it up securely, no one but you can decrypt the files on github. Backing up your tomb to a cloud source will ensure that even if you lose your electronics in a fire, you will still have your password store (so long as you safely backup your gpg secret key).
 
+Once your remote repo is setup type:
+```bash
+git -C ~/.tomb/ remote add origin <URL to remote>
+```
+
 
 To create or update your tomb, after you have initialized the ~/.tomb/ directory and git initialized your ~/.tomb dir, simply type:
 ```bash
