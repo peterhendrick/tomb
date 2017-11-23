@@ -75,12 +75,7 @@ function closeFunction {
 	cp -a ~/.password-store/ ~/.tomb/tomb
 	tar -cf ~/.tomb/tomb.tar ~/.tomb/tomb
 	new_sha="$(shasum -a 256 ~/.tomb/tomb.tar)"
-	cat ~/.tomb/.tarsha
 	old_sha="$(cat ~/.tomb/.tarsha)"
-	echo "new sha"
-	echo "$new_sha"
-	echo "old sha"
-	echo "$old_sha"
 	if [[ "$new_sha" = "$old_sha" ]]; then
 		echo "No changes since last close, removing password store, but no updates to be made"
 		rm -rf ~/.password-store/ ~/.tomb/tomb.tar ~/.tomb/tomb/
@@ -88,8 +83,7 @@ function closeFunction {
 		if [[ -e ~/.tomb/tomb.tar.gz.gpg ]]; then
 			rm ~/.tomb/tomb.tar.gz.gpg
 		fi
-		temp="$(shasum -a 256 ~/.tomb/tomb.tar)"
-		echo "$temp" > ~/.tomb/.tarsha
+		shasum -a 256 ~/.tomb/tomb.tar > ~/.tomb/.tarsha
 		gzip ~/.tomb/tomb.tar
 		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz 
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
