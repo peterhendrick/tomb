@@ -36,7 +36,7 @@ git clone https://github.com/peterhendrick/tomb.git ~/tomb/ && cd ~/tomb
 
 It is recommended that you verify your download before executing any files downloaded from the internet. You can see instructions for verifying your download near the bottom of this readme.
 
-First give permission to the current user to execute the tomb.sh file.
+Once you've verified the download using the SHASUM and SHASUM.sig files, give permission to the current user to execute the tomb.sh file.
 
 ```bash
 chmod u+x ./tomb.sh
@@ -63,7 +63,7 @@ $ which tomb
 /Users/<your user>/bin/tomb
 ```
 
-First off, you're going to need to have pass installed. You can get that through homebrew, which can be downloaded and installed here: https://brew.sh/
+Before starting with tomb, you're going to need to have pass installed. You can get that through homebrew, which can be downloaded and installed here: https://brew.sh/
 
 ```bash
 brew install pass
