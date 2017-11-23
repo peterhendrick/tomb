@@ -18,18 +18,111 @@ To use tomb, you need:
 
 * git - the stupid content tracker: You'll need git to download and update your tomb file.
 
-* GnuPG - Gnu Privacy Guard (optional): to verify your download and encrypt/decrypt files while steggin'.
+* GnuPG - Gnu Privacy Guard (required): to encrypt/decrypt files while using tomb'.
+
+* tar - A native unix file compressor: creates and manipulates streaming archive files.  This implementation can extract from tar, pax, cpio, zip, jar, ar, and ISO 9660
+     cdrom images and can create tar, pax, cpio, ar, and shar archives
 
 * pass - a homebrew password manager package.
 
 The rest of this README will assume your bash commands are executed within the tomb directory (folder).
 
 
+## Getting Started
+
+Now that you've verified the authenticity of the tomb file, you need to give yourself permission to execute the tomb.sh file. Type the command:
+
+```bash
+chmod u+x ./tomb.sh
+```
+* chmod - this program is native to unix and modifies file permissions. See more by typing "man chmod".
+* u+x - this argument gives the present user permission to execute the file specified in the next argument (./tomb.sh).
+
+You'll want to create a symlink in your path to execute tomb.
+
+```bash
+mkdir ~/bin/ && ln -s ~/tomb/tomb.sh ~/bin/tomb
+```
+
+Then you'll want to add ~/bin to your PATH
+
+```bash
+echo "export PATH=${PATH}:~/bin/
+```
+
+If done correctly, you should see this when typing 'which tomb':
+
+```bash
+$ which tomb
+/Users/<your user>/bin/tomb
+```
+
+First off, you're going to need to have pass installed. You can get that through homebrew, which can be downloaded and installed here: https://brew.sh/
+
+```bash
+brew install pass
+```
+
+Then you can read pass's documentation here: https://www.passwordstore.org/
+
+Once you have pass installed type:
+
+```bash
+pass init
+```
+
+And go through the setup. (gpg required)
+
+It is recommended that you use pass to initialize a git repo for your encrypted passwords so that you can have a record of past changes (stored encrypted):
+```bash
+pass git init
+```
+
+pass will automatically add and commit changes to your ~/.password-store/ directory, however, password names are stored in plaintext. Tomb takes care of this information leak by first creating a gzipped tape archive (.tar.gz) file of the .password-store directory. It then uses gpg to encypt the .tar.gz file using your default gpg private key. Tomb will then remove the ~/.password-store directory so that only an enctypted .tar.gz.gpg file remains within the ~/.tomb/ directory. You can then easily decrypt, extract and open the tomb at any time and your original ~/.password-store directory will be restored.
+
+
+Tomb expects git to be initialized in the ~/.tomb/ directory, so type:
+
+```bash
+mkdir ~/.tomb && git -C ~/.tomb/ init
+```
+
+Tomb also expects your git repo to have a remote tied to it. So create a remote repo that you have access to, you can use github. Your file will be encrypted, so as long as you protect your gpg private key, and back it up securely, no one but you can decrypt the files on github. Backing up your tomb to a cloud source will ensure that even if you lose your electronics in a fire, you will still have your password store (so long as you safely backup your gpg secret key).
+
+
+To create or update your tomb, after you have initialized the ~/.tomb/ directory and git initialized your ~/.tomb dir, simply type:
+```bash
+tomb close
+```
+
+This will archive and encrypt your password store and remove the ~/.password-store directory, ensuring that even the password names are not accessible without first decrypting. With tomb's git repo setup and properly tied to a remote, it will then add and commit the encyrpted archive and push it to the remote. Your password store's original git repo will be preserved. It is not recommended that you publish your plaintext password store on a git remote, since password names can expose which sites you have passwords to, even if the password itself is not accessible.
+
+To open the tomb back up, type:
+
+```bash
+tomb open
+```
+
+This will decrypt, extract and copy your tomb to the ~/.password-store directory. pass will be open and operate just as it was if it was never put in a tomb.
+
+To see if the password store tomb is open or closed, type:
+```bash
+tomb status
+```
+
+This will tell you if the ~/.password-store/ directory exists already. If it does exist, the tomb is considered open. If it doesn't exist the tomb is assumed to be closed.
+
+Used properly, tomb will allow you to have personally controlled, secure cloud storage of your passwords. As long as you have a safe backup of your gpg secret key, you, and only you, will always be able to access your passwords.
+
+
+
 ## Verifying Your Download
 
 You are going to want to verify the file you download is legitimate. To do this, I've included a SHASUM file containing a sha256 hash of the tomb.sh script.
 
-When using tools for things like hiding files, you want to have absolute confidence in the legitimacy of your tools. Verifying your downloads is a good habit to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in your tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
+When using tools for things like hiding files, you want to have absolute confidence in the legitimacy of your tools. Verifying your downloads is a good habit
+to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in you
+r tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
 
 After downloading, while your present working directory (pwd) is tomb/, type into bash:
 
@@ -91,37 +184,8 @@ You should see output similar to this:
 ```bash
 31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  tomb.sh
 31ba208c3034761b19a71656f8df57a4d038462aaaf6d633daf8153fe1c05ce1  tomb.sh
-gpg: Signature made Mon Aug 29 22:46:21 2016 UTC using RSA key ID EC3ED53D
+gpg: Signature made Mon Nov 20 22:46:21 2017 UTC using RSA key ID EC3ED53D
 gpg: Good signature from "Peter Hendrick <myemail>"
 ```
 
-
-## Getting Started
-
-Now that you've verified the authenticity of the tomb file, you need to give yourself permission to execute the tomb.sh file. Type the command:
-
-```bash
-chmod u+x ./tomb.sh
-```
-* chmod - this program is native to unix and modifies file permissions. See more by typing "man chmod".
-* u+x - this argument gives the present user permission to execute the file specified in the next argument (./tomb.sh).
-
-You'll want to create a symlink in your path to execute tomb.
-
-```bash
-mkdir ~/bin/ && ln -s ~/tomb/tomb.sh ~/bin/tomb
-```
-
-Then you'll want to add ~/bin to your PATH
-
-```bash
-echo "export PATH=${PATH}:~/bin/
-```
-
-If done correctly, you should see this when typing 'which tomb':
-
-```bash
-$ which tomb
-/Users/<your user>/bin/tomb
-```
 
