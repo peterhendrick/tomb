@@ -10,11 +10,11 @@ function exitFunction {
 
 function helpFunction {
         echo "Usage: $0 [arguments...]"; echo
-        echo "   help | -h | --help          Show help."; echo
-        echo "   open | o | -o               open the tomb for pass"; echo
-	echo "   close | c | -c              close the ~/.password-store/ dir into a tomb"; echo
-	echo "   status | s | -s             show the tomb's current status"; echo
-	echo "   init | i | -i               initialize tomb"; echo
+        echo "   help | h | -h | --help      Show help."; echo
+        echo "   init | i | -i               Initialize tomb"; echo
+	echo "   open | o | -o               Open the tomb and restore your password store"; echo
+	echo "   close | c | -c              Close the password store into a tomb"; echo
+	echo "   status | s | -s             Show the tomb's current status"; echo
 	exit 1
 }
 
@@ -81,6 +81,7 @@ while [ "$#" -gt 0 ]; do
 		help) helpFunction; shift 1;;
                 --help) helpFunction; shift 1;;
                 -h) helpFunction; shift 1;;
+		h) helpFunction; shift 1;;
                 init) initFunction; shift 1;;
 		i) initFunction; shift 1;;
 		-i) initFunction; shift 1;;
