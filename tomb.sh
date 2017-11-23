@@ -1,22 +1,23 @@
 #! /bin/bash
 
 if [ "$#" = 0 ]; then
-        echo "Error: use open or close or use -h or --help." >&2
+        echo "Error: use open or close or use help -h or --help." >&2
         exit 1
 fi
 
 # Function Definitions
 function exitFunction {
-        echo "Error - Bad Argument: $1 not found. Use -h or --help." >&2
+        echo "Error - Bad Argument: $1 not found. Use help -h or --help." >&2
         exit 1
 }
 
 function helpFunction {
         echo "Usage: $0 [arguments...]"; echo
-        echo "   -h| --help                 Show help."; echo
-        echo "   open                       open the tomb for pass"; echo
-	echo "   close                      close the ~/.password-store/ dir into a tomb"; echo
-	echo "   status                     show the tomb's current status"; echo
+        echo "   help | -h | --help          Show help."; echo
+        echo "   open | o | -o               open the tomb for pass"; echo
+	echo "   close | c | -c              close the ~/.password-store/ dir into a tomb"; echo
+	echo "   status | s | -s             show the tomb's current status"; echo
+	echo "   init | i | -i               initialize tomb"; echo
 	exit 1
 }
 
@@ -77,9 +78,12 @@ function initFunction {
 # while loop to parse arguments
 while [ "$#" -gt 0 ]; do
         case "$1" in
+		help) helpFunction; shift 1;;
                 --help) helpFunction; shift 1;;
                 -h) helpFunction; shift 1;;
                 init) initFunction; shift 1;;
+		i) initFunction; shift 1;;
+		-i) initFunction; shift 1;;
 		open) openFunction; shift 1;;
 		o) openFunction; shift 1;;
 		-o) openFunction; shift 1;;
