@@ -58,9 +58,10 @@ function closeFunction {
 			rm ~/.tomb/tomb.tar.gz.gpg
 		fi
 		tar -zc -f ~/.tomb/tomb.tar.gz ~/.tomb/tomb
-		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz ~/.password-store/
+		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz 
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
 		git -C ~/.tomb/ commit -m 'tomb update'
+		rm -rf ~/.password-store/
 		git -C ~/.tomb/ push
 	fi
 }
