@@ -46,9 +46,13 @@ function openFunction {
 }
 
 function closeFunction {
+	if [[ ! -d ~/.password-store/ ]]; then
+		echo "Tomb is already closed"
+		exit 1
+	fi
 	pass_change_date="$(git -C ~/.password-store/ log -1 --format=%ct)"
 	tomb_change_date="$(git -C ~/.tomb log -1 --format=%ct)"
-	if [[ "$pass_change_date" -lt "$tomb_change_date" && -d ~/.password-store/.git/ && -d ~/.tomb/.git/ ]]; then
+	if [[ "$pass_change_date" -lt "$tomb_change_date" && -d ~/.password-store/.git/ && -d ~/.tomb/.git/ && -e ~/.tomb/tomb.tar.gz.gpg ]]; then
 		rm -rf ~/.password-store/
 		echo "No changes since last close. Removing password store, but no updates to be made."
 	else
