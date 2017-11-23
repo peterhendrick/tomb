@@ -47,7 +47,7 @@ mkdir ~/bin/ && ln -s ~/tomb/tomb.sh ~/bin/tomb
 Then you'll want to add ~/bin to your PATH
 
 ```bash
-echo "export PATH=${PATH}:~/bin/
+echo "export PATH=${PATH}:~/bin/" >> ~/.bash_profile
 ```
 
 If done correctly, you should see this when typing 'which tomb':
