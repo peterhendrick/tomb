@@ -48,7 +48,7 @@ function openFunction {
 function closeFunction {
 	pass_change_date="$(git -C ~/.password-store/ log -1 --format=%ct)"
 	tomb_change_date="$(git -C ~/.tomb log -1 --format=%ct)"
-	if [[ "$pass_change_date" -lt "$tomb_change_date" ]]; then
+	if [[ "$pass_change_date" -lt "$tomb_change_date" && -d ~/.password-store/.git/ && -d ~/.tomb/.git/ ]]; then
 		rm -rf ~/.password-store/
 		echo "No changes since last close. Removing password store, but no updates to be made."
 	else
