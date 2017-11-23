@@ -24,8 +24,6 @@ To use tomb, you need:
 
 * pass - a homebrew password manager package.
 
-The rest of this README will assume your bash commands are executed within the tomb directory (folder).
-
 
 ## Getting Started
 
@@ -142,10 +140,10 @@ When using tools for things like hiding files, you want to have absolute confide
 to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in you
 r tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
 
-After downloading, while your present working directory (pwd) is tomb/, type into bash:
+After downloading:
 
 ```bash
-shasum -a 256 tomb.sh && cat SHASUM
+shasum -a 256 ~/tomb/tomb.sh && cat ~/tomb/SHASUM
 ```
 You should see output similar to this:
 ```bash
@@ -179,7 +177,7 @@ gpg --keyserver hkp://keys.gnupg.net --recv-key EC3ED53D
 You now have my public key imported on your machine. You can now verify the SHASUM.sig file. In bash type:
 
 ```bash
-gpg --verify SHASUM.sig SHASUM
+gpg --verify ~/tomb/SHASUM.sig ~/tomb/SHASUM
 ```
 * --verify this argument verifies my gpg signature file against the SHASUM file specified in the last argument.
 
@@ -194,7 +192,7 @@ If you see the "Good signature", you can be as certain as possible that the SHAS
 If you have my gpg public key, and you would like to use one command for the verification, you can type:
 
 ```bash
-cat SHASUM && shasum -a 256 tomb.sh && gpg --verify SHASUM.sig SHASUM
+cat ~/tomb/SHASUM && shasum -a 256 ~/tomb/tomb.sh && gpg --verify ~/tomb/SHASUM.sig ~/tomb/SHASUM
 ```
 
 You should see output similar to this:
