@@ -35,9 +35,6 @@ function openFunction {
                 echo "Password store already exists"
                 exit 1
         fi
-	if [[ -d ~/.tomb/tomb/ ]]; then
-		rm -rf ~/.tomb/tomb/
-	fi
 
         gpg -d ~/.tomb/tomb.tar.gz.gpg > ~/.tomb/tomb.tar.gz || { echo 'Decryption failed' ; exit 1; }
 	tar -zx -f ~/.tomb/tomb.tar.gz -C ~/.tomb/ --strip-components=3
