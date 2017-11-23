@@ -87,7 +87,7 @@ pass git init
 pass will automatically add and commit changes to your ~/.password-store/ directory, however, password names are stored in plaintext. Tomb takes care of this information leak by first creating a gzipped tape archive (.tar.gz) file of the .password-store directory. It then uses gpg to encypt the .tar.gz file using your default gpg private key. Tomb will then remove the ~/.password-store directory so that only an enctypted .tar.gz.gpg file remains within the ~/.tomb/ directory. You can then easily decrypt, extract and open the tomb at any time and your original ~/.password-store directory will be restored.
 
 
-You'll need Tomb expects git to be initialized in the ~/.tomb/ directory, so type:
+You'll need to initialize tomb. Tomb expects git to be initialized in the ~/.tomb/ directory, so type:
 
 ```bash
 tomb init
