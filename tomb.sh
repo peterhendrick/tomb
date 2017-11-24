@@ -34,9 +34,11 @@ function tombExistanceCheck {
 }
 
 function checkFunction {
-	if [[ ! -d ~/.password-store  ]]; then
+	if [[ -d ~/.password-store ]]; then
 		echo "Closing tomb."
 		closeFunction
+	else
+		echo "Tomb is closed."
 	fi
 }
 
