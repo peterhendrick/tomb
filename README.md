@@ -111,7 +111,7 @@ To create or update your tomb, after you have initialized the ~/.tomb/ directory
 tomb close
 ```
 
-This will archive and encrypt your password store and remove the ~/.password-store directory, ensuring that even the password names are not accessible without first decrypting. Tomb will has your compressed password store and compare it to the latest hash taken, so that if there are no changes to the password store, then it will abort updating your tomb's git repo. Your password store's original git repo will be preserved during this compression and encryption. It is not recommended that you publish your plaintext password store on a git remote, since password names can expose which sites you have passwords to, even if the password itself is not accessible.
+This will archive and encrypt your password store and remove the ~/.password-store directory, ensuring that even the password names are not accessible without first decrypting. Tomb will hash your compressed password store and compare it to the latest hash taken, so that if there are no changes to the password store, then it will abort updating your tomb's git repo. Your password store's original git repo will be preserved during this compression and encryption. It is not recommended that you publish your plaintext password store on a git remote, since password names can expose which sites you have passwords to, even if the password itself is not accessible.
 
 To open the tomb back up, type:
 
@@ -137,8 +137,7 @@ Used properly, tomb will allow you to have personally controlled, secure cloud s
 You are going to want to verify the file you download is legitimate. To do this, I've included a SHASUM file containing a sha256 hash of the tomb.sh script.
 
 When using tools for things like hiding files, you want to have absolute confidence in the legitimacy of your tools. Verifying your downloads is a good habit
-to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in you
-r tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
+to get into. Comparing sha256 hashes is good, and will help verify that downloads happen without corruption, but using GnuPG is the ultimate confidence in your tools. If the author uses gpg to sign their tools, you can be as absolutely certain as possible that your tools are legitimate.
 
 After downloading:
 
