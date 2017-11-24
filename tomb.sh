@@ -75,7 +75,7 @@ function closeFunction {
  		exit 1
  	fi
 	cp -a ~/.password-store/ ~/.tomb/tomb
-	tar -cf ~/.tomb/tomb.tar ~/.tomb/tomb
+	tar -cf ~/.tomb/tomb.tar ~/.tomb/tomb > /dev/null 2>&1
 	new_sha="$(shasum -a 256 ~/.tomb/tomb.tar)"
 	old_sha="$(cat ~/.tomb/.tarsha)"
 	if [[ "$new_sha" = "$old_sha" ]]; then
