@@ -115,6 +115,23 @@ tomb status
 
 This will tell you if the ~/.password-store/ directory exists already. If it does exist, the tomb is considered open. If it doesn't exist the tomb is assumed to be closed.
 
+If you would like to check the status of the tomb, and close it if it is open, then type:
+```bash
+tomb check
+```
+
+You can set a cronjob that will run tomb check every so often. tomb check will see if the tomb is open, and if it is, it will close the tomb. Type:
+```bash
+crontab -e
+```
+And paste the following line:
+```bash
+*/10 * * * * /bin/bash /Users/<your user>/tomb/tomb.sh check > /dev/null 2>&1
+```
+
+This example will check the tomb every 10 minutes, and will close the tomb if it is open.
+
+
 Used properly, tomb will allow you to have personally controlled, secure cloud storage of your passwords. As long as you have a safe backup of your gpg secret key, you, and only you, will always be able to access your passwords.
 
 
