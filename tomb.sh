@@ -105,7 +105,7 @@ function initFunction {
 	read -p "Enter the gpg id you would like to use with tomb: " gpg_key
 	[[ $(gpg --list-keys | grep "$gpg_key") ]] && echo "Key Exists. Adding to .tomb store." || { echo 'No key found, exiting.' ; exit 1; }
 	read -p "What is your git username? " git_user
-	read -p  "What is your git email? " git_email
+	read -p "What is your git email? " git_email
 	read -p "Enter a remote git url or ssh: " git_remote
 
 	echo "Configuring .tomb and git."
