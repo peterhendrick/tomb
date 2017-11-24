@@ -91,20 +91,7 @@ You'll need to initialize tomb. Tomb expects git to be initialized in the ~/.tom
 tomb init
 ```
 
-Tomb also expects your git repo to have a remote tied to it. So create a remote repo that you have access to, you can use github. Your file will be encrypted, so as long as you protect your gpg private key, and back it up securely, no one but you can decrypt the files on github. Backing up your tomb to a cloud source will ensure that even if you lose your electronics in a fire, you will still have your password store (so long as you safely backup your gpg secret key).
-
-Once your remote repo is setup type:
-```bash
-git -C ~/.tomb/ remote add origin <SSH to remote>
-```
-
-You'll also want to configure your tomb's git repo to set yourself as the author of your commits, and to sign your commits, type the following commands:
-```bash
-git -C ~/.tomb/ config user.name "Yourname"
-git -C ~/.tomb/ config user.email "youremail"
-git -C ~/.tomb/ config user.signingkey "your gpg key"
-git -C ~/.tomb/ config commit.gpgsign true
-```
+And follow the promts. This will setup a git repo, add your gpg id and add a git remote to push your changes to.
 
 To create or update your tomb, after you have initialized the ~/.tomb/ directory and git initialized your ~/.tomb dir, simply type:
 ```bash
