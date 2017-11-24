@@ -88,7 +88,7 @@ function closeFunction {
 		shasum -a 256 ~/.tomb/tomb.tar > ~/.tomb/.tarsha
 		gzip ~/.tomb/tomb.tar
 		gpg_key="$( cat ~/.tomb/.gpg_key )"
-		gpg -s -r "$gpg_key" -e ~/.tomb/tomb.tar.gz || { echo 'Encryption failed. Exiting.' && rm -rf ~/.tomb/tomb ~/.tomb/tomb/tar ~/.tomb/tomb.tar.gz ; exit 1; }
+		gpg -u "$gpg_key" -s -r "$gpg_key" -e ~/.tomb/tomb.tar.gz || { echo 'Encryption failed. Exiting.' && rm -rf ~/.tomb/tomb ~/.tomb/tomb/tar ~/.tomb/tomb.tar.gz ; exit 1; }
 		rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.tomb/tomb.tar.gz
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
 		git -C ~/.tomb/ commit -m 'tomb update'
