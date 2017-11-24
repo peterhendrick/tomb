@@ -83,7 +83,7 @@ function closeFunction {
 		fi
 		shasum -a 256 ~/.tomb/tomb.tar > ~/.tomb/.tarsha
 		gzip ~/.tomb/tomb.tar
-		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar.gz 
+		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.tomb/tomb.tar.gz
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
 		git -C ~/.tomb/ commit -m 'tomb update'
 		rm -rf ~/.password-store/
@@ -98,9 +98,9 @@ function initFunction {
 	fi
 	mkdir ~/.tomb/
 	git -C ~/.tomb/ init
-	echo ".tarsha" > .gitignore
-	git -C ~/.tomb/ add .gitignore
-	git -C ~/.tomb/ commit -m 'initialized .git and added .git ignore'
+	echo ".tarsha" > ~/.tomb/.gitignore
+	git -C ~/.tomb/ add ~/.tomb/.gitignore
+	git -C ~/.tomb/ commit -m 'initialized .git and added .gitignore'
 	echo "Success, tomb is initialized."
 }
 
