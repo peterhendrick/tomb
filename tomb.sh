@@ -106,7 +106,7 @@ function initFunction {
 	[[ $(gpg --list-keys | grep "$gpg_key") ]] && echo "Key Exists. Adding to .tomb store." || { echo 'No key found, exiting.' ; exit 1; }
 	read -p "What is your git username? " git_user
 	read -p  "What is your git email? " git_email
-	read -p "Enter a remote git url or ssh: " gpg_remote
+	read -p "Enter a remote git url or ssh: " git_remote
 
 	echo "Configuring .tomb and git."
 
@@ -116,7 +116,7 @@ function initFunction {
 	git -C ~/.tomb/ config user.email "$git_email"
 	git -C ~/.tomb/ config user.signingkey "$gpg_key"
 	git -C ~/.tomb/ config commit.gpgsign true
-	git -C ~/.tomb/ remote add origin "$gpg_remote"
+	git -C ~/.tomb/ remote add origin "$git_remote"
 	
 	echo "git initialized. setting up tomb."
 	touch ~/.tomb/.tarsha
