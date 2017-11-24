@@ -93,7 +93,7 @@ tomb init
 
 And follow the promts. This will setup a git repo, add your gpg id and add a git remote to push your changes to.
 
-To create or update your tomb, after you have initialized the ~/.tomb/ directory and git initialized your ~/.tomb dir, simply type:
+To create or update your tomb, after you have initialized tomb, simply type:
 ```bash
 tomb close
 ```
