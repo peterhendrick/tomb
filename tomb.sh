@@ -56,6 +56,8 @@ function openFunction {
                 echo "Password store already exists"
                 exit 1
         fi
+	
+	
         gpg -d ~/.tomb/tomb.tar.gz.gpg > ~/.tomb/tomb.tar.gz || { echo 'Decryption failed' ; exit 1; }
 	gzip -d ~/.tomb/tomb.tar.gz
 	tar -x -f ~/.tomb/tomb.tar -C ~/.tomb/ --strip-components=3
@@ -83,7 +85,9 @@ function closeFunction {
 		fi
 		shasum -a 256 ~/.tomb/tomb.tar > ~/.tomb/.tarsha
 		gzip ~/.tomb/tomb.tar
-		gpg -s -r "EC3ED53D" -e ~/.tomb/tomb.tar.gz && rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.tomb/tomb.tar.gz
+		gpg_key="$( cat ~/.tomb/.gpg_key )"
+		gpg -s -r "$gpg_key" -e ~/.tomb/tomb.tar.gz || { echo 'Encryption failed. Exiting.' && rm -rf ~/.tomb/tomb ~/.tomb/tomb/tar ~/.tomb/tomb.tar.gz ; exit 1; }
+		rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.tomb/tomb.tar.gz
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
 		git -C ~/.tomb/ commit -m 'tomb update'
 		rm -rf ~/.password-store/
@@ -92,13 +96,35 @@ function closeFunction {
 }
 
 function initFunction {
-	if [[ -d ~/.tomb/ ]]; then
+	if [[ -d ~/.tomb/ && -e ~/.tomb/.gpg_key && -d ~/.tomb/.git ]]; then
 		echo "Tomb is already initialized."
 		exit 1
 	fi
+	echo "Enter the gpg id you would like to use with tomb: "
+	read -r gpg_key
+	[[ $(gpg --list-keys | grep "$gpg_key") ]] && echo "Key Exists. Adding to .tomb store." || { echo 'No key found, exiting.' ; exit 1; }
+	echo "What is your git username? "
+	read -r git_user
+	echo "What is your git email? "
+	read -r git_email
+	echo "Enter a remote git url or ssh: "
+	read -r gpg_remote
+
+	echo "Configuring .tomb and git."
+
 	mkdir ~/.tomb/
 	git -C ~/.tomb/ init
+	git -C ~/.tomb/ config user.name "$git_user"
+	git -C ~/.tomb/ config user.email "$git_email"
+	git -C ~/.tomb/ config user.signingkey "$gpg_key"
+	git -C ~/.tomb/ config commit.gpgsign true
+	git -C ~/.tomb/ remote add origin "$gpg_remote"
+	
+	echo "git initialized. setting up tomb."
+	touch ~/.tomb/.tarsha
+	echo "$gpg_key" > ~/.tomb/.gpg_key
 	echo ".tarsha" > ~/.tomb/.gitignore
+	echo ".gpg_key" >> ~/.tomb/.gitignore
 	git -C ~/.tomb/ add ~/.tomb/.gitignore
 	git -C ~/.tomb/ commit -m 'initialized .git and added .gitignore'
 	echo "Success, tomb is initialized."
