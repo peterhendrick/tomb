@@ -91,7 +91,7 @@ You'll need to initialize tomb. Tomb expects git to be initialized in the ~/.tom
 tomb init
 ```
 
-And follow the promts. This will setup a git repo, add your gpg id and add a git remote to push your changes to.
+And follow the promts. This will setup a git repo, add your gpg id and add a git remote (optional) to push your changes to.
 
 To create or update your tomb, after you have initialized tomb, simply type:
 ```bash

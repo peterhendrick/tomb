@@ -92,8 +92,8 @@ function closeFunction {
 		rm -rf ~/.tomb/tomb ~/.tomb/tomb.tar ~/.tomb/tomb.tar.gz
 		git -C ~/.tomb/ add ~/.tomb/tomb.tar.gz.gpg
 		git -C ~/.tomb/ commit -m 'tomb update'
+		[[ "$(git -C ~/.tomb/ remote)" && "$(git -C ~/.tomb/ remote get-url origin)" ]] && git -C ~/.tomb/ push
 		rm -rf ~/.password-store/
-		git -C ~/.tomb/ push
 	fi
 }
 
@@ -106,7 +106,7 @@ function initFunction {
 	[[ $(gpg --list-keys | grep "$gpg_key") ]] && echo "Key Exists. Adding to .tomb store." || { echo 'No key found, exiting.' ; exit 1; }
 	read -p "What is your git username? " git_user
 	read -p "What is your git email? " git_email
-	read -p "Enter a remote git url or ssh: " git_remote
+	read -p "Enter a remote git url or ssh (type "skip" to skip): " git_remote
 
 	echo "Configuring .tomb and git."
 
@@ -116,7 +116,7 @@ function initFunction {
 	git -C ~/.tomb/ config user.email "$git_email"
 	git -C ~/.tomb/ config user.signingkey "$gpg_key"
 	git -C ~/.tomb/ config commit.gpgsign true
-	git -C ~/.tomb/ remote add origin "$git_remote"
+	[[ "$git_remote" != "skip" ]] && git -C ~/.tomb/ remote add origin "$git_remote"
 	
 	echo "git initialized. setting up tomb."
 	touch ~/.tomb/.tarsha
@@ -125,6 +125,7 @@ function initFunction {
 	echo ".gpg_key" >> ~/.tomb/.gitignore
 	git -C ~/.tomb/ add ~/.tomb/.gitignore
 	git -C ~/.tomb/ commit -m 'initialized .git and added .gitignore'
+	[[ "$git_remote" != "skip" ]] && git -C ~/.tomb/ push
 	echo "Success, tomb is initialized."
 }
 
